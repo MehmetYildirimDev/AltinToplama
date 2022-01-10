@@ -5,6 +5,7 @@ using UnityEngine;
 public class OyuncuKontrolleri : MonoBehaviour
 {
     public OyunKontrol oyunK;
+    
 
     float hiz = 10;
     // Start is called before the first frame update
@@ -12,8 +13,8 @@ public class OyuncuKontrolleri : MonoBehaviour
     {
         
     }
+
     
-    // Update is called once per frame
     void Update()
     {
         if (oyunK.OyunAktif)
@@ -29,14 +30,18 @@ public class OyuncuKontrolleri : MonoBehaviour
         transform.Translate(x, 0f, y);//konumu cevirmek yaný degistirmek diyor sanýrým-yukseklikte bir deðiþiklik yapmadýgýmý ýcýn 0f verdik
         }
     }
+    public AudioClip altin, dusme;
     void OnCollisionEnter(Collision c)
     {
         if (c.gameObject.tag.Equals("altin"))
         {
-            oyunK.AltinSayasi++;
+            AudioSource.PlayClipAtPoint(altin, transform.position);//altin sesini olusutur positionda  ///geçiçi bir audio source olusturulup sonra yok ediliyor
+            oyunK.AltinArtir();
+            Destroy(c.gameObject);
         }
         else if (c.gameObject.tag.Equals("dusman"))
         {
+            AudioSource.PlayClipAtPoint(dusme, transform.position);
             oyunK.OyunAktif = false;
         }
     }

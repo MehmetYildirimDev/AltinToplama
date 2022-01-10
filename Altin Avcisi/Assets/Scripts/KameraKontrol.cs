@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class KameraKontrol : MonoBehaviour
 {
+
+    public OyunKontrol OyunK;
+
     float hassasiyet = 5f;
     float yumusaklik = 2f;
 
@@ -15,11 +18,18 @@ public class KameraKontrol : MonoBehaviour
     void Start()
     {
         Oyuncu = transform.parent.gameObject;//kameranýn baðlý oldugu(biz baðladýk ) parent game objectene baðladýk 
+
+        camPos.y = 9;///BURADA
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (OyunK.OyunAktif)
+        {
+
+        
+
         Vector2 farePos = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));//Farenin ilk konumuna göre yeni bir nokta oluþturuyoruz 
         farePos = Vector2.Scale(farePos, new Vector2(yumusaklik * hassasiyet,yumusaklik*hassasiyet));
         //Bu noktamýz uzerinde scale komutuyla uzerinde bir degiþiklik geniþletme iþlemi yapýcaz ///bunu daha gerçeðe yakýn bir hareket için yapýcaz    
@@ -34,6 +44,6 @@ public class KameraKontrol : MonoBehaviour
         ///sað sol için oyuncunun yönunu deðiþtiricez
         ///
         Oyuncu.transform.localRotation = Quaternion.AngleAxis(camPos.x, Oyuncu.transform.up);//Oyuncuyu dönderiyoruz 
-
+        }
     }
 }
